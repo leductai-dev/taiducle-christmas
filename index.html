@@ -34,9 +34,15 @@
     <script>
         var canvas = document.querySelector('#snowField');
         var ctx = canvas.getContext('2d');
-
-        canvas.width = window.innerWidth ;
-        canvas.height = window.innerHeight;
+        
+        var scwidth = window.innerWidth
+        var scheight= window.innerHeight
+        if(window.innerWidth > 1000){
+            scwidth  = window.innerWidth - 20 ;
+            scheight = window.innerHeight - 20;
+        } 
+        canvas.width = scwidth
+        canvas.height = scheight
         var totalSnow = 100;
 
         function Snow() {
