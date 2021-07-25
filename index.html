@@ -6,8 +6,9 @@
     <title>Xmas Snow 2016</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <style>
         * {
@@ -20,9 +21,84 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-repeat: no-repeat;
-            background-position: center center;
+            background-position: center -282px;
             font-family: 'Dancing Script', cursive;
-            
+
+        }
+
+        #hihi-dongok {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-40%, -45%);
+            font-size: 50px;
+            z-index: 10000;
+            color: white;
+            line-height: 66px;
+
+        }
+
+        ._3 {
+            font-size: 30px;
+        }
+
+        .name {
+            animation: transleft 1s linear both;
+        }
+
+        .sub {
+            animation: transright 1s linear both;
+        }
+
+        @keyframes transleft {
+            0% {
+                transform: translateX(-30%);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes transright {
+            0% {
+                transform: translateX(30%);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            body {
+                background-position: center 0px;
+
+            }
+            #hihi-dongok {
+                transform: unset;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+            }
+            p{
+            }
+            p:first-child{
+                position: absolute;
+                top: 20%;
+                left: 10px;
+            }
+            p:last-child{
+                position: absolute;
+                top: 35%;
+                right: 10px;
+                max-width: 200px;
+            }
         }
     </style>
 </head>
@@ -30,17 +106,22 @@
 <body>
 
     <canvas id="snowField"></canvas>
+    <div id="hihi-dongok" class="hihi">
+        <p class="name">Thanh Thảo 15-7</p>
+        <p class="sub">Hope all the best will come to you <span>
+                <</span><span class="_3">3</span> </p>
+    </div>
 
     <script>
         var canvas = document.querySelector('#snowField');
         var ctx = canvas.getContext('2d');
-        
+
         var scwidth = window.innerWidth
-        var scheight= window.innerHeight
-        if(window.innerWidth > 1000){
-            scwidth  = window.innerWidth - 20 ;
+        var scheight = window.innerHeight
+        if (window.innerWidth > 1000) {
+            scwidth = window.innerWidth - 20;
             scheight = window.innerHeight - 20;
-        } 
+        }
         canvas.width = scwidth
         canvas.height = scheight
         var totalSnow = 100;
@@ -80,20 +161,40 @@
         var imgLight = new Image();
         imgLight.src = 'light.png';
 
-        function draw() {
-            console.log(imgTree.height);
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(imgTree, 0, canvas.height - imgTree.height / 4 + 90, 500, 550);
-            ctx.drawImage(imgLight, canvas.width - imgLight.width / 3, 0, imgLight.width / 4, imgLight.height / 4);
-            // ctx.fontFamily = 'Segoe UI, sans-serif';
-            ctx.font = '50px Dancing Script, cursive';
-            ctx.fillText('Thanh Thảo 15-7', 500, 350);
-            ctx.fillText('Hope all the best will come to you', 500, 450);
-            for (var i = 0; i < snows.length; i++) {
-                snows[i].update();
-            }
 
-            requestAnimationFrame(draw);
+        function draw() {
+            if (canvas.width < 1000) {
+                console.log(imgTree.height);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                // ctx.drawImage(imgTree, 0, canvas.height - imgTree.height / 4 + 90, 500, 550);
+                ctx.drawImage(imgTree, -50, canvas.height - 350, 300, 350);
+
+                /*  ctx.drawImage(imgLight, canvas.width - imgLight.width / 3, 0, imgLight.width / 4, imgLight.height / 4); */
+                ctx.drawImage(imgLight, 0, 0, canvas.width, canvas.width / 3);
+                // ctx.fontFamily = 'Segoe UI, sans-serif';
+                /*   ctx.font = '50px Dancing Script, cursive';
+                  ctx.fillText('Thanh Thảo 15-7', 500, 350);
+                  ctx.fillText('Hope all the best will come to you', 500, 450); */
+                for (var i = 0; i < snows.length; i++) {
+                    snows[i].update();
+                }
+
+                requestAnimationFrame(draw);
+            } else {
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(imgTree, 0, canvas.height - 550, 500, 550);
+                ctx.drawImage(imgLight, canvas.width - imgLight.width / 3, 0, imgLight.width / 4, imgLight.height / 4);
+                // ctx.fontFamily = 'Segoe UI, sans-serif';
+                /* ctx.font = '50px Dancing Script, cursive';
+                ctx.fillText('Thanh Thảo 15-7', 500, 350);
+                ctx.fillText('Hope all the best will come to you', 500, 450); */
+                for (var i = 0; i < snows.length; i++) {
+                    snows[i].update();
+                }
+
+                requestAnimationFrame(draw);
+            }
         }
 
 
